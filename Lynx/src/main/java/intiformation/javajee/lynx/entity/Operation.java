@@ -48,7 +48,6 @@ public abstract class Operation {							//Class abstraite Operation qui donnera 
 	private Compte compte;
 	
 	
-	
 	/**Constructor**/
 	public Operation() {
 	}
