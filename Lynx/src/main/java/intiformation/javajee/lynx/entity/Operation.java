@@ -31,6 +31,7 @@ import javax.persistence.ManyToOne;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="Type", discriminatorType=DiscriminatorType.STRING)		//Creation d'une colone supplementaire pour preciser le type d'operation
 public abstract class Operation {							//Class abstraite Operation qui donnera ses valeur a retrait et versement
+
 	/**Attribut**/
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -78,7 +79,21 @@ public abstract class Operation {							//Class abstraite Operation qui donnera 
 		this.montantOperation = montantOperation;
 	}
 	
-	
+	public Employe getEmploye() {
+		return employe;
+	}
+
+	public void setEmploye(Employe employe) {
+		this.employe = employe;
+	}
+
+	public Compte getCompte() {
+		return compte;
+	}
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
+	}
 	
 
 }
