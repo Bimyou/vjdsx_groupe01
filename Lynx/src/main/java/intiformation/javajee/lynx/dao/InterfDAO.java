@@ -3,6 +3,16 @@
  */
 package intiformation.javajee.lynx.dao;
 
+import java.util.List;
+
+import intiformation.javajee.lynx.entity.Client;
+import intiformation.javajee.lynx.entity.Compte;
+import intiformation.javajee.lynx.entity.Employe;
+import intiformation.javajee.lynx.entity.Groupe;
+import intiformation.javajee.lynx.entity.Operation;
+import intiformation.javajee.lynx.entity.Retrait;
+import intiformation.javajee.lynx.entity.Versement;
+
 /**
  * @author Xavier Charef
  * nomProjet : Lynx
