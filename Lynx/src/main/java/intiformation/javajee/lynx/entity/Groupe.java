@@ -20,7 +20,6 @@ import javax.persistence.ManyToMany;
  *Sprint:1
  *Ref-UserStory:4
  *Association(s): List<Employe>
- * 
  * */
 
 @Entity

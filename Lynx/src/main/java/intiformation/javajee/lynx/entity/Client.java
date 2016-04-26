@@ -23,7 +23,6 @@ import javax.persistence.OneToMany;
  *Sprint:1
  *Ref-UserStory:4
  *Association(s): List<Compte>
- * 
  * */
 
 @Entity

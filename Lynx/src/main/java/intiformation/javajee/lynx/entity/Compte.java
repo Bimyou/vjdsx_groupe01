@@ -36,6 +36,7 @@ import javax.persistence.OneToOne;
  *association:List<Client>
  * association:Employe
  * association:ListOperation
+ * 
  * */
 
 @Entity
