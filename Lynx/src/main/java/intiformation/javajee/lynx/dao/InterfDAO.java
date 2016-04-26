@@ -15,7 +15,7 @@ import intiformation.javajee.lynx.entity.Versement;
 
 /**
  * @author Xavier Charef
- * nomProjet : Lynx
+ * nomProjet : Lynx 
  * Interface  DAO
  * date 26/04/2016
  * Package : intiformation.javajee.lynx.dao
