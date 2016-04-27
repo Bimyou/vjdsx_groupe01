@@ -82,7 +82,7 @@ public class ImplMetier implements InterfMetier {
 
 	/** addEmplToGroup ajoute un client a la liste d'emplouye d'un groupe d'employe**/
 	@Override
-	public void addEmplToGroup(long idEmploye, long codeGroupe) {
+	public void addEmplToGroup(Long idEmploye, Long codeGroupe) {
 		dao.addEmplToGroup(idEmploye, codeGroupe);	
 	}
 
@@ -94,7 +94,7 @@ public class ImplMetier implements InterfMetier {
 	
 	/** getCompte ressort un compte de la base de donnee en fct de son id**/
 	@Override
-	public Compte getCompte(long idCompte) {	
+	public Compte getCompte(Long idCompte) {	
 		return dao.getCompte(idCompte);
 	}
 
@@ -112,13 +112,13 @@ public class ImplMetier implements InterfMetier {
 	
 	/** selectCompteWithClient selectionne une liste de compte de la base de donnee en fct de l'id du client**/
 	@Override
-	public List<Compte> selectCompteWithClient(long idClient) {
+	public List<Compte> selectCompteWithClient(Long idClient) {
 		return dao.selectCompteWithClient(idClient);
 	}
 
 	/** selectCompteWithEmploy selectionne une liste de compte de la base de donnee en fct de l'id de l'employe qui l'a cree**/
 	@Override
-	public List<Compte> selectCompteWithEmploy(long IdEmploye) {
+	public List<Compte> selectCompteWithEmploy(Long IdEmploye) {
 		return dao.selectCompteWithEmploy(IdEmploye);
 	}
 
@@ -136,7 +136,7 @@ public class ImplMetier implements InterfMetier {
 	
 	/** selectEmployOfGroup selectionne une liste de tout les employes d'un groupe de la base de donnee **/
 	@Override
-	public List<Employe> selectEmployOfGroup(long idGroupe) {
+	public List<Employe> selectEmployOfGroup(Long idGroupe) {
 		return dao.selectEmployOfGroup(idGroupe);
 	}
 	
@@ -151,7 +151,7 @@ public class ImplMetier implements InterfMetier {
 	 * 'idCompte'
 	 **/
 	@Override
-	public void doVersement(Versement v, long idCompte) {
+	public void doVersement(Versement v, Long idCompte) {
 		Compte cm = em.find(Compte.class, idCompte);
 		cm.setSoldeCompte(cm.getSoldeCompte() + v.getMontantOperation());
 		v.setCompte(cm);
@@ -161,7 +161,7 @@ public class ImplMetier implements InterfMetier {
 
 	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
 	@Override
-	public void doRetrait(Retrait r, long idCompte) {
+	public void doRetrait(Retrait r, Long idCompte) {
 		Compte c= em.find(Compte.class, idCompte);
 		c.setSoldeCompte(c.getSoldeCompte()-r.getMontantOperation());
 		r.setCompte(c);
@@ -170,7 +170,7 @@ public class ImplMetier implements InterfMetier {
 	}
 
 	@Override
-	public void doVirement(long idCompteCredite, long idCompteDebite,		//Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite
+	public void doVirement(Long idCompteCredite, Long idCompteDebite,		//Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite
 			double somme) {
 		Date d = new Date();
 		Retrait r = new Retrait(d, somme);

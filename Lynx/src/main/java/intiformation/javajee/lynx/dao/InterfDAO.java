@@ -46,7 +46,7 @@ public interface InterfDAO {
 	public Groupe getGroupe (Long idGroupe);
 
 	/** addEmplToGroup ajoute un client a la liste d'emplouye d'un groupe d'employe**/
-	public void addEmplToGroup (long idEmploye,long codeGroupe);
+	public void addEmplToGroup (Long idEmploye,Long codeGroupe);
 	
 	/** addCompte ajoute un compte a la base de donnee**/
 	public void addCompte (Compte c, Long idClient, Long idEmploye);
@@ -55,16 +55,16 @@ public interface InterfDAO {
 	public void addOperation (Operation o, Long idEmploye);
 	
 	/** getCompte ressort un compte de la base de donnee en fct de son id**/
-	public Compte getCompte (long idCompte);
+	public Compte getCompte (Long idCompte);
 	
 	/**getOperation renvoie un Operation grace a son identifiant**/
 	public Operation getOperation (Long idOperation);
 	
 	/** selectCompteWithClient selectionne une liste de compte de la base de donnee en fct de l'id du client**/
-	public List<Compte> selectCompteWithClient (long idClient);
+	public List<Compte> selectCompteWithClient (Long idClient);
 	
 	/** selectCompteWithEmploy selectionne une liste de compte de la base de donnee en fct de l'id de l'employe qui l'a cree**/
-	public List<Compte> selectCompteWithEmploy (long IdEmploye);
+	public List<Compte> selectCompteWithEmploy (Long IdEmploye);
 
 	/** selectAllEmploye selectionne une liste de tout les employes de la base de donnee **/
 	public List<Employe> selectAllEmploye ();
@@ -73,7 +73,7 @@ public interface InterfDAO {
 	public List<Groupe> selectAllGroupe ();
 
 	/** selectEmployOfGroup selectionne une liste de tout les employes d'un groupe de la base de donnee **/
-	public List<Employe> selectEmployOfGroup (long idGroupe);
+	public List<Employe> selectEmployOfGroup (Long idGroupe);
 
 	/** searchClient selectionne une liste de tout les client contenant le mot cles 'mc' **/
 	public List<Client> searchClient (String mc);

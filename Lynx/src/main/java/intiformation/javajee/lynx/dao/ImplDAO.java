@@ -78,7 +78,7 @@ public class ImplDAO implements InterfDAO {
 
 	/**addEmplToGroup ajoute un employe dans un groupe avec leurs id respectives**/
 	@Override
-	public void addEmplToGroup(long idEmploye, long codeGroupe) {
+	public void addEmplToGroup(Long idEmploye, Long codeGroupe) {
 		Employe e = em.find(Employe.class, idEmploye);
 		Groupe g = em.find(Groupe.class, codeGroupe);
 		g.getListeEmployes().add(e);
@@ -107,7 +107,7 @@ public class ImplDAO implements InterfDAO {
 
 	/** getCompte ressort un compte de la base de donnee en fct de son id**/
 	@Override
-	public Compte getCompte(long idCompte) {
+	public Compte getCompte(Long idCompte) {
 		Compte c= em.find(Compte.class, idCompte);
 		return c;
 	}
@@ -119,14 +119,14 @@ public class ImplDAO implements InterfDAO {
 	}
 	/**selectCompteWithClient renvoie la list de compte que possede un client, elle a besoin de l idClien**/
 	@Override
-	public List<Compte> selectCompteWithClient(long idClient) {	
+	public List<Compte> selectCompteWithClient(Long idClient) {	
 		Client c = em.find(Client.class, idClient);
 		return c.getListeComptes();
 	}
 
 	/** selectCompteWithEmploy selectionne une liste de compte de la base de donnee en fct de l'id de l'employe qui l'a cree**/
 	@Override
-	public List<Compte> selectCompteWithEmploy(long IdEmploye) {
+	public List<Compte> selectCompteWithEmploy(Long IdEmploye) {
 		Query query = em.createQuery("from Compte c where c.employe.codeEmploye=:x");
 		query.setParameter("x",IdEmploye);
 		return query.getResultList();
@@ -152,7 +152,7 @@ public class ImplDAO implements InterfDAO {
 
 	/** selectEmployOfGroup selectionne une liste de tout les employes d'un groupe de la base de donnee **/
 	@Override
-	public List<Employe> selectEmployOfGroup(long idGroupe) {
+	public List<Employe> selectEmployOfGroup(Long idGroupe) {
 		Groupe g = em.find(Groupe.class, idGroupe);
 		return g.getListeEmployes();
 	}
