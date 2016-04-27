@@ -79,10 +79,10 @@ public interface InterfMetier {
 	public List<Client> searchClient (String mc);
 
 	/** doVersement effectue un versement v dans le compte d'identifiant 'idCompte' **/
-	public void doVersement (Versement v, Long idCompte);
+	public void doVersement (Double mont, Long idCompte);
 
 	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
-	public void doRetrait (Retrait r, Long idCompte);
+	public void doRetrait (Double mont, Long idCompte);
 
 	/** doVirement effectue un virement vers le compte d'identifiant 'idCompteCredite', par le compte d'identifiant 'idCompteDebite' d'un valeur de 'somme' **/
 	public void doVirement (Long idCompteCredite,Long idCompteDebite, double somme);

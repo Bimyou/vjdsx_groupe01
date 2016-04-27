@@ -151,32 +151,32 @@ public class ImplMetier implements InterfMetier {
 	 * 'idCompte'
 	 **/
 	@Override
-	public void doVersement(Versement v, Long idCompte) {
-		Compte cm = em.find(Compte.class, idCompte);
-		cm.setSoldeCompte(cm.getSoldeCompte() + v.getMontantOperation());
-		v.setCompte(cm);
-		em.merge(cm);
-		em.merge(v);
+	public void doVersement(Double mont, Long idCompte) {
+		Compte c= em.find(Compte.class, idCompte);
+		Versement v = new Versement(new Date(), mont);
+		c.setSoldeCompte(c.getSoldeCompte() + mont);
+		v.setCompte(c);
+		em.merge(c);
+		em.persist(v);
 	}
 
 	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
 	@Override
-	public void doRetrait(Retrait r, Long idCompte) {
+	public void doRetrait(Double mont, Long idCompte) {
 		Compte c= em.find(Compte.class, idCompte);
-		c.setSoldeCompte(c.getSoldeCompte()-r.getMontantOperation());
-		r.setCompte(c);
+		Versement v = new Versement(new Date(), mont);
+		c.setSoldeCompte(c.getSoldeCompte() - mont);
+		v.setCompte(c);
 		em.merge(c);
-		em.merge(r);
+		em.persist(v);
 	}
 
 	@Override
 	public void doVirement(Long idCompteCredite, Long idCompteDebite,		//Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite
-			double somme) {
+			double montant) {
 		Date d = new Date();
-		Retrait r = new Retrait(d, somme);
-		Versement v = new Versement (d, somme);
-		doVersement(v, idCompteCredite);
-		doRetrait(r,idCompteDebite);
+		doVersement(montant, idCompteCredite);
+		doRetrait(montant,idCompteDebite);
 	}
 
 	
