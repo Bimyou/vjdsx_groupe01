@@ -21,6 +21,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 
@@ -49,6 +51,7 @@ public class Compte implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long numeroCompte;
 	protected double soldeCompte;
+	@Temporal(TemporalType.TIME)
 	protected Date dateCreationCompte;
 
 	/* association */

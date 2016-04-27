@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /*Auteur(s):Vinh
  *Nom projet:Lynx
@@ -36,6 +38,7 @@ public class Client {
 	private Long codeClient;
 	private String nomClient;
 	private String prenomClient;
+	@Temporal(TemporalType.TIME)
 	private Date dateNaissanceClient;
 	private String adresseClient;
 	

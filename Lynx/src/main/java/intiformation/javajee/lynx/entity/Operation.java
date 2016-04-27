@@ -12,6 +12,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /*Auteur :
  * NomProjet: Lynx
@@ -36,6 +38,7 @@ public abstract class Operation {							//Class abstraite Operation qui donnera 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	protected Long numOperation;
+	@Temporal(TemporalType.TIME)
 	protected Date dateOperation;
 	protected Double montantOperation;
 	

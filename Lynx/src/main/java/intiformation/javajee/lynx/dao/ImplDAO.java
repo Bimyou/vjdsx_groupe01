@@ -20,10 +20,15 @@ import javax.persistence.Query;
 
 /**
  * @author Xavier Charef, Shéhérazade Taouza, Jean Daniel Eymann
+ * nomProjet : Lynx
+ * ImplDAO
+ * date 26/04/2016
+ * Package : intiformation.javajee.lynx.dao
+ * ref-Uml:1
+ * version 1
+ * Sprint : 1
+ * association: avec ImplMetier
  * 
- *         nomProjet : Lynx Interface DAO date 26/04/2016 Package :
- *         intiformation.javajee.lynx.dao ref-Uml:1 version 1 Sprint : 1
- *         association: avec ImplMetier
  */
 
 public class ImplDAO implements InterfDAO {
@@ -36,14 +41,12 @@ public class ImplDAO implements InterfDAO {
 	@Override
 	public void addClient(Client client) {
 		em.persist(client);
-
 	}
 
 	/** addEmploye ajoute un employe a la base de donnee **/
 	@Override
 	public void addEmploye(Employe employe) {
 		em.persist(employe);
-
 	}
 
 	/** addGroupe ajoute un groupe a la base de donnee**/
@@ -51,7 +54,6 @@ public class ImplDAO implements InterfDAO {
 	public void addGroupe(Groupe groupe) {
 		// TODO Auto-generated method stub
 		em.persist(groupe);
-
 	}
 
 	@Override
@@ -59,17 +61,15 @@ public class ImplDAO implements InterfDAO {
 		Employe e = em.find(Employe.class, idEmploye);
 		Groupe g = em.find(Groupe.class, codeGroupe);
 		g.getListeEmployes().add(e);
-
+		e.getListeGroupes().add(g);
 		em.merge(g);
+		em.merge(e);
 	}
 
 
 	/** addCompte ajoute un compte a la base de donnee**/
 	@Override
 	public void addCompte(Compte c) {
-		// TODO Auto-generated method stub
-
-	
 		em.persist(c);
 	}
 
@@ -77,7 +77,6 @@ public class ImplDAO implements InterfDAO {
 	@Override
 	public void addOperation(Operation o) {
 		em.persist(o);
-
 	}
 
 	/** getCompte ressort un compte de la base de donnee en fct de son id**/
@@ -97,7 +96,7 @@ public class ImplDAO implements InterfDAO {
 	/** selectCompteWithEmploy selectionne une liste de compte de la base de donnee en fct de l'id de l'employe qui l'a cree**/
 	@Override
 	public List<Compte> selectCompteWithEmploy(long IdEmploye) {
-		Query query = em.createQuery("from Compte c where c.employe=:x");
+		Query query = em.createQuery("from Compte c where c.employe.codeEmploye=:x");
 		query.setParameter("x",IdEmploye);
 		return query.getResultList();
 	}
@@ -108,10 +107,8 @@ public class ImplDAO implements InterfDAO {
 	 **/
 	@Override
 	public List<Employe> selectAllEmploye() {
-
 		Query query = em.createQuery("from Employe");
 		return query.getResultList();
-
 	}
 
 	/** selectAllGroupe selectionne une liste de tout les groupes de la base de donnee **/
@@ -122,6 +119,7 @@ public class ImplDAO implements InterfDAO {
 		return query.getResultList();
 	}
 
+	/** selectEmployOfGroup selectionne une liste de tout les employes d'un groupe de la base de donnee **/
 	@Override
 	public List<Employe> selectEmployOfGroup(long idGroupe) {
 		Groupe g = em.find(Groupe.class, idGroupe);
@@ -145,8 +143,9 @@ public class ImplDAO implements InterfDAO {
 	public void doVersement(Versement v, long idCompte) {
 		Compte cm = em.find(Compte.class, idCompte);
 		cm.setSoldeCompte(cm.getSoldeCompte() + v.getMontantOperation());
+		v.setCompte(cm);
 		em.merge(cm);
-
+		em.merge(v);
 	}
 
 	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
@@ -162,12 +161,11 @@ public class ImplDAO implements InterfDAO {
 	@Override
 	public void doVirement(long idCompteCredite, long idCompteDebite,		//Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite
 			double somme) {
-		Retrait r = new Retrait(new Date(), somme);
-		Versement v = new Versement (new Date(), somme);
+		Date d = new Date();
+		Retrait r = new Retrait(d, somme);
+		Versement v = new Versement (d, somme);
 		doVersement(v, idCompteCredite);
 		doRetrait(r,idCompteDebite);
-		// TODO Auto-generated method stub
-
 	}
 
 }

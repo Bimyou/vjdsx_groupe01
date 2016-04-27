@@ -15,7 +15,6 @@ import intiformation.javajee.lynx.entity.Versement;
 
 /**
  * @author Xavier Charef
- * 
  * nomProjet : Lynx
  * Interface  DAO
  * date 26/04/2016
@@ -24,6 +23,7 @@ import intiformation.javajee.lynx.entity.Versement;
  * version 1
  * Sprint : 1
  * association: avec ImplMetier
+ * 
  */
 public interface InterfDAO {
 
