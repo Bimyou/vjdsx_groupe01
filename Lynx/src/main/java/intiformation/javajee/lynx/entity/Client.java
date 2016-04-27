@@ -43,7 +43,6 @@ public class Client {
 	private String adresseClient;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="client")
-	@JoinColumn
 	private List<Compte> listeComptes = new ArrayList<Compte>();
 
 	

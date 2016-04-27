@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import intiformation.javajee.lynx.dao.InterfDAO;
 import intiformation.javajee.lynx.entity.Client;
@@ -31,11 +33,11 @@ import intiformation.javajee.lynx.entity.Versement;
  * Sprint : 1
  * association: InterfDAO dao
  */
+@Transactional
 public class ImplMetier implements InterfMetier {
 
-	private final Logger LOG=Logger.getLogger("ImplMetier");
+	private final Logger LOG = Logger.getLogger("ImplMetier");
 	private InterfDAO dao;
-	private EntityManager em;
 	
 	/** Le Setter de dao qui assure l'injection et le lien du bean **/
 	public void setDao(InterfDAO dao) {
@@ -152,23 +154,21 @@ public class ImplMetier implements InterfMetier {
 	 **/
 	@Override
 	public void verser(Double mont, Long idCompte, Long idEmploye) {
-		Compte c= em.find(Compte.class, idCompte);
+		Compte c= dao.getCompte(idCompte);
 		Versement v = new Versement(new Date(), mont);
 		c.setSoldeCompte(c.getSoldeCompte() + mont);
 		v.setCompte(c);
-		em.merge(c);
-		em.persist(v);
+		dao.addOperation(v, idEmploye);
 	}
 
 	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
 	@Override
 	public void doRetrait(Double mont, Long idCompte, Long idEmploye) {
-		Compte c= em.find(Compte.class, idCompte);
+		Compte c= dao.getCompte(idCompte);
 		Versement v = new Versement(new Date(), mont);
 		c.setSoldeCompte(c.getSoldeCompte() - mont);
 		v.setCompte(c);
-		em.merge(c);
-		em.persist(v);
+		dao.addOperation(v, idEmploye);
 	}
 
 	/**Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite*/

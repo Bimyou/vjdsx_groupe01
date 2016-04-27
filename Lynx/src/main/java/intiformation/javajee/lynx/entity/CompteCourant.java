@@ -35,12 +35,10 @@ public class CompteCourant extends Compte implements Serializable {
 
 	public CompteCourant() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CompteCourant(double soldeCompte, Date dateCreationCompte) {
 		super(soldeCompte, dateCreationCompte);
-		// TODO Auto-generated constructor stub
 	}
 
 	public CompteCourant(double decouvert) {
