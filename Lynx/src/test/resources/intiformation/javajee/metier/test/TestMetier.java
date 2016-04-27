@@ -136,10 +136,10 @@ public class TestMetier {
 	 * 'idCompte'
 	 **/
 	@Test
-	public void testDoVersement() {
+	public void testVerser() {
 		Compte cm = metier.getCompte(1L);
 		Double soldeAnc = cm.getSoldeCompte();
-		metier.doVersement(555.55, 1L);
+		metier.verser(555.55, 1L, 1L);
 		Double soldeNouv = cm.getSoldeCompte();
 		assertTrue(soldeNouv - soldeAnc == 555.55);
 	}
@@ -149,7 +149,7 @@ public class TestMetier {
 	public void testDoRetrait() {
 		Compte cm = metier.getCompte(1L);
 		Double soldeAnc = cm.getSoldeCompte();
-		metier.doRetrait(555.55, 1L);
+		metier.doRetrait(555.55, 1L, 1L);
 		Double soldeNouv = cm.getSoldeCompte();
 		assertTrue(soldeAnc - soldeNouv == 555.55);
 	}
@@ -159,7 +159,7 @@ public class TestMetier {
 		Compte cm1 =metier.getCompte(1L);
 		double montAnc = cm1.getSoldeCompte();
 		Compte cm2 = new CompteCourant(400.00,new Date());
-		metier.doVirement(1L, cm2.getNumeroCompte(), 200.00);
+		metier.doVirement(1L, cm2.getNumeroCompte(), 200.00, 1L);
 		assertTrue(cm2.getSoldeCompte()==200.00 && cm1.getSoldeCompte()-montAnc==200.00);
 	}
 }

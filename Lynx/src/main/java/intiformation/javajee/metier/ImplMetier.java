@@ -151,7 +151,7 @@ public class ImplMetier implements InterfMetier {
 	 * 'idCompte'
 	 **/
 	@Override
-	public void doVersement(Double mont, Long idCompte) {
+	public void verser(Double mont, Long idCompte, Long idEmploye) {
 		Compte c= em.find(Compte.class, idCompte);
 		Versement v = new Versement(new Date(), mont);
 		c.setSoldeCompte(c.getSoldeCompte() + mont);
@@ -162,7 +162,7 @@ public class ImplMetier implements InterfMetier {
 
 	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
 	@Override
-	public void doRetrait(Double mont, Long idCompte) {
+	public void doRetrait(Double mont, Long idCompte, Long idEmploye) {
 		Compte c= em.find(Compte.class, idCompte);
 		Versement v = new Versement(new Date(), mont);
 		c.setSoldeCompte(c.getSoldeCompte() - mont);
@@ -171,14 +171,10 @@ public class ImplMetier implements InterfMetier {
 		em.persist(v);
 	}
 
+	/**Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite*/
 	@Override
-	public void doVirement(Long idCompteCredite, Long idCompteDebite,		//Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite
-			double montant) {
-		Date d = new Date();
-		doVersement(montant, idCompteCredite);
-		doRetrait(montant,idCompteDebite);
-	}
-
-	
-			
+	public void doVirement(Long idCompteCredite, Long idCompteDebite, double montant, Long idEmploye) {
+		verser(montant, idCompteCredite, idEmploye);
+		doRetrait(montant,idCompteDebite, idEmploye);
+	}			
 }
