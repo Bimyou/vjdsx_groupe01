@@ -3,7 +3,12 @@
  */
 package intiformation.javajee.metier;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import org.apache.log4j.Logger;
 
 import intiformation.javajee.lynx.dao.InterfDAO;
 import intiformation.javajee.lynx.entity.Client;
@@ -28,46 +33,63 @@ import intiformation.javajee.lynx.entity.Versement;
  */
 public class ImplMetier implements InterfMetier {
 
+	private final Logger LOG=Logger.getLogger("ImplMetier");
 	private InterfDAO dao;
+	private EntityManager em;
+	
+	/** Le Setter de dao qui assure l'injection et le lien du bean **/
+	public void setDao(InterfDAO dao) {
+		this.dao = dao;
+		LOG.info("dao injected");
+	}
+
+	
 	/** addClient ajoute un client a la base de donnee**/
 	@Override
 	public void addClient(Client client) {
 		dao.addClient(client);
+	}
+	
+	/**getClient renvoie un client grace a son identifiant**/
+	@Override
+	public Client getClient(Long idClient) {
+		return dao.getClient(idClient);
 	}
 
 	/** addEmploye ajoute un employe a la base de donnee**/
 	@Override
 	public void addEmploye(Employe employe) {
 		dao.addEmploye(employe);
-		
 	}
 
+	/**getemploye renvoie un employe grace a son identifiant**/
+	@Override
+	public Employe getEmploye(Long idEmploye) {
+		return dao.getEmploye(idEmploye);
+	}
+	
 	/** addGroupe ajoute un groupe a la base de donnee**/
 	@Override
 	public void addGroupe(Groupe groupe) {
 		dao.addGroupe(groupe);
-		
+	}
+	
+	/**getemploye renvoie un employe grace a son identifiant**/
+	@Override
+	public Groupe getGroupe(Long idGroupe) {
+		return dao.getGroupe(idGroupe);
 	}
 
 	/** addEmplToGroup ajoute un client a la liste d'emplouye d'un groupe d'employe**/
 	@Override
 	public void addEmplToGroup(long idEmploye, long codeGroupe) {
-		dao.addEmplToGroup(idEmploye, codeGroupe);
-		
+		dao.addEmplToGroup(idEmploye, codeGroupe);	
 	}
 
 	/** addCompte ajoute un compte a la base de donnee**/
 	@Override
-	public void addCompte(Compte c) {
-		dao.addCompte(c);
-		
-	}
-
-	/** addOperation ajoute un operation a la base de donnee**/
-	@Override
-	public void addOperation(Operation o) {
-		dao.addOperation(o);
-		
+	public void addCompte(Compte c, Long idClient, Long idEmploye) {
+		dao.addCompte(c, idClient, idEmploye);
 	}
 	
 	/** getCompte ressort un compte de la base de donnee en fct de son id**/
@@ -76,6 +98,18 @@ public class ImplMetier implements InterfMetier {
 		return dao.getCompte(idCompte);
 	}
 
+	/** addOperation ajoute un operation a la base de donnee**/
+	@Override
+	public void addOperation(Operation o, Long idEmploye) {
+		dao.addOperation(o, idEmploye);
+	}
+
+	/**getOperation renvoie un Operation grace a son identifiant**/
+	@Override
+	public Operation getOperation(Long idOperation) {
+		return dao.getOperation(idOperation);
+	}
+	
 	/** selectCompteWithClient selectionne une liste de compte de la base de donnee en fct de l'id du client**/
 	@Override
 	public List<Compte> selectCompteWithClient(long idClient) {
@@ -99,34 +133,52 @@ public class ImplMetier implements InterfMetier {
 	public List<Groupe> selectAllGroupe() {
 		return dao.selectAllGroupe();
 	}
+	
 	/** selectEmployOfGroup selectionne une liste de tout les employes d'un groupe de la base de donnee **/
 	@Override
 	public List<Employe> selectEmployOfGroup(long idGroupe) {
 		return dao.selectEmployOfGroup(idGroupe);
 	}
+	
 	/** searchClient selectionne une liste de tout les client contenant le mot cles 'mc' **/
 	@Override
 	public List<Client> searchClient(String mc) {
 		return dao.searchClient(mc);
 	}
-	/** doVersement effectue un versement v dans le compte d'identifiant 'idCompte' **/
+
+	/**
+	 * doVersement effectue un versement v dans le compte d'identifiant
+	 * 'idCompte'
+	 **/
 	@Override
 	public void doVersement(Versement v, long idCompte) {
-		dao.doVersement(v, idCompte);
+		Compte cm = em.find(Compte.class, idCompte);
+		cm.setSoldeCompte(cm.getSoldeCompte() + v.getMontantOperation());
+		v.setCompte(cm);
+		em.merge(cm);
+		em.merge(v);
 	}
+
 	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
 	@Override
 	public void doRetrait(Retrait r, long idCompte) {
-		dao.doRetrait(r, idCompte);
+		Compte c= em.find(Compte.class, idCompte);
+		c.setSoldeCompte(c.getSoldeCompte()-r.getMontantOperation());
+		r.setCompte(c);
+		em.merge(c);
+		em.merge(r);
 	}
 
-	/** doVirement effectue un virement vers le compte d'identifiant 'idCompteCredite', par le compte d'identifiant 'idCompteDebite' d'un valeur de 'somme' **/
 	@Override
-	public void doVirement(long idCompteCredite, long idCompteDebite,
+	public void doVirement(long idCompteCredite, long idCompteDebite,		//Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite
 			double somme) {
-		dao.doVirement(idCompteCredite, idCompteDebite, somme);
-		
+		Date d = new Date();
+		Retrait r = new Retrait(d, somme);
+		Versement v = new Versement (d, somme);
+		doVersement(v, idCompteCredite);
+		doRetrait(r,idCompteDebite);
 	}
 
 	
+			
 }

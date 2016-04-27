@@ -29,24 +29,36 @@ public interface InterfMetier {
 
 	/** addClient ajoute un client a la base de donnee**/
 	public void addClient(Client client);
+	
+	/**getClient renvoie un client grace a son identifiant**/
+	public Client getClient (Long idClient);
 
 	/** addEmploye ajoute un employe a la base de donnee**/
 	public void addEmploye(Employe employe);
+	
+	/**getemploye renvoie un employe grace a son identifiant**/
+	public Employe getEmploye (Long idEmploye);
 
 	/** addGroupe ajoute un groupe a la base de donnee**/
 	public void addGroupe(Groupe groupe);
+	
+	/**getGroupe renvoie un Groupe grace a son identifiant**/
+	public Groupe getGroupe (Long idGroupe);
 
 	/** addEmplToGroup ajoute un client a la liste d'emplouye d'un groupe d'employe**/
 	public void addEmplToGroup (long idEmploye,long codeGroupe);
 	
 	/** addCompte ajoute un compte a la base de donnee**/
-	public void addCompte (Compte c);
+	public void addCompte (Compte c, Long idClient, Long idEmploye);
 	
 	/** addOperation ajoute un operation a la base de donnee**/
-	public void addOperation (Operation o);
+	public void addOperation (Operation o, Long idEmploye);
 	
 	/** getCompte ressort un compte de la base de donnee en fct de son id**/
 	public Compte getCompte (long idCompte);
+	
+	/**getOperation renvoie un Operation grace a son identifiant**/
+	public Operation getOperation (Long idOperation);
 	
 	/** selectCompteWithClient selectionne une liste de compte de la base de donnee en fct de l'id du client**/
 	public List<Compte> selectCompteWithClient (long idClient);

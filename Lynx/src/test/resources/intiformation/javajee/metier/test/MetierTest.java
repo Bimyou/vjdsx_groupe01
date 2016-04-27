@@ -65,52 +65,58 @@ public class MetierTest {
 		}
 
 		/** addGroupe ajoute un groupe a la base de donnee**/
+		@Test
 		public void testAddGroupe() {
 			Groupe g = new Groupe("TestNomGroupe");
 			metier.addGroupe(g);
 			assertNotNull(g.getCodeGroupe());
 		}
 
-		/** addEmplToGroup ajoute un client a la liste d'emplouye d'un groupe d'employe**//*
-		@Override
-		public void addEmplToGroup(long idEmploye, long codeGroupe) {
-			dao.addEmplToGroup(idEmploye, codeGroupe);
+		/** addEmplToGroup ajoute un client a la liste d'emplouye d'un groupe d'employe**/
+		/*@Test
+		public void TestAddEmplToGroup() {
+			metier.addEmplToGroup(1L, 1L);
+			assertTrue();
 			
+		}*/
+
+		/** addCompte ajoute un compte a la base de donnee**/
+		@Test
+		public void TestAddCompte() {
+			Compte c = new Compte(1000.00,new Date());
+			metier.addCompte(c);
+			assertNotNull(c.getNumeroCompte());
 		}
 
-		*//** addCompte ajoute un compte a la base de donnee**//*
-		@Override
-		public void addCompte(Compte c) {
-			dao.addCompte(c);
-			
-		}
-
-		*//** addOperation ajoute un operation a la base de donnee**//*
-		@Override
-		public void addOperation(Operation o) {
-			dao.addOperation(o);
-			
+		/** addOperation ajoute un operation a la base de donnee**/
+		@Test
+		public void testAddOperation() {
+			Operation o = new Retrait(new Date(), 100.05);
+			metier.addOperation(o);
+			assertNotNull (o.getNumOperation());
 		}
 		
-		*//** getCompte ressort un compte de la base de donnee en fct de son id**//*
-		@Override
-		public Compte getCompte(long idCompte) {	
-			return dao.getCompte(idCompte);
+		/** getCompte ressort un compte de la base de donnee en fct de son id**/
+		@Test
+		public void testGetCompte() {	
+			Compte c = metier.getCompte(1L);
+			assertTrue(c.getNumeroCompte().equals(1L));
 		}
 
-		*//** selectCompteWithClient selectionne une liste de compte de la base de donnee en fct de l'id du client**//*
-		@Override
-		public List<Compte> selectCompteWithClient(long idClient) {
-			return dao.selectCompteWithClient(idClient);
+	/** selectCompteWithClient selectionne une liste de compte de la base de donnee en fct de l'id du client**/
+	/*	@Test
+		public void testSelectCompteWithClient() {
+			List list = metier.selectCompteWithClient(1L);
+			assertTrue(list.size().equals(getClient(1L).getListCompte().size()));
+		}*/
+
+		/** selectCompteWithEmploy selectionne une liste de compte de la base de donnee en fct de l'id de l'employe qui l'a cree**/
+		@Test
+		public void testSelectCompteWithEmploy() {
+
 		}
 
-		*//** selectCompteWithEmploy selectionne une liste de compte de la base de donnee en fct de l'id de l'employe qui l'a cree**//*
-		@Override
-		public List<Compte> selectCompteWithEmploy(long IdEmploye) {
-			return dao.selectCompteWithEmploy(IdEmploye);
-		}
-
-		*//** selectAllEmploye selectionne une liste de tout les employes de la base de donnee **//*
+		/** selectAllEmploye selectionne une liste de tout les employes de la base de donnee **//*
 		@Override
 		public List<Employe> selectAllEmploye() {
 			return dao.selectAllEmploye();

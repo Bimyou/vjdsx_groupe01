@@ -43,52 +43,83 @@ public class ImplDAO implements InterfDAO {
 		em.persist(client);
 	}
 
+	/**getClient renvoie un client grace a son id**/
+	@Override
+	public Client getClient(Long idClient) {
+		Client c = em.find(Client.class, idClient);
+		return c;
+	}
+
 	/** addEmploye ajoute un employe a la base de donnee **/
 	@Override
 	public void addEmploye(Employe employe) {
 		em.persist(employe);
 	}
 
+	/** getEmploye revoie un employe grace a son id**/
+	@Override
+	public Employe getEmploye(Long idEmploye) {
+		Employe e = em.find(Employe.class, idEmploye);
+		return e;
+	}
+
 	/** addGroupe ajoute un groupe a la base de donnee**/
 	@Override
 	public void addGroupe(Groupe groupe) {
-		// TODO Auto-generated method stub
 		em.persist(groupe);
 	}
-
+	
+	/**getGroupe renvoie le groupe grace a son id**/
 	@Override
-	public void addEmplToGroup(long idEmploye, long codeGroupe) {		//Ajouter un employe dans un groupe avec leurs id respective
+	public Groupe getGroupe(Long idGroupe) {
+		Groupe g = em.find(Groupe.class, idGroupe);
+		return g;
+	}
+
+	/**addEmplToGroup ajoute un employe dans un groupe avec leurs id respectives**/
+	@Override
+	public void addEmplToGroup(long idEmploye, long codeGroupe) {
 		Employe e = em.find(Employe.class, idEmploye);
 		Groupe g = em.find(Groupe.class, codeGroupe);
 		g.getListeEmployes().add(e);
 		e.getListeGroupes().add(g);
-		em.merge(g);
-		em.merge(e);
 	}
 
 
 	/** addCompte ajoute un compte a la base de donnee**/
 	@Override
-	public void addCompte(Compte c) {
+	public void addCompte(Compte c, Long idClient, Long idEmploye) {
+		Client cl = em.find(Client.class, idClient);
+		Employe e = em.find(Employe.class, idEmploye);
+		cl.getListeComptes().add(c);
+		e.getListeComptes().add(c);
 		em.persist(c);
 	}
 
 	/** addOperation ajoute une operation a la base de donnee **/
 	@Override
-	public void addOperation(Operation o) {
+	public void addOperation(Operation o, Long idEmploye) {
+		Employe e = em.find(Employe.class, idEmploye);
+		e.getListeOperations().add(o);
+		o.setEmploye(e);
 		em.persist(o);
 	}
 
 	/** getCompte ressort un compte de la base de donnee en fct de son id**/
 	@Override
 	public Compte getCompte(long idCompte) {
-		// TODO Auto-generated method stub
 		Compte c= em.find(Compte.class, idCompte);
 		return c;
 	}
-
+	
 	@Override
-	public List<Compte> selectCompteWithClient(long idClient) {		//Obtenir une liste de compte d un client
+	public Operation getOperation(Long idOperation) {
+		Operation o = em.find(Operation.class, idOperation);
+		return o;
+	}
+	/**selectCompteWithClient renvoie la list de compte que possede un client, elle a besoin de l idClien**/
+	@Override
+	public List<Compte> selectCompteWithClient(long idClient) {	
 		Client c = em.find(Client.class, idClient);
 		return c.getListeComptes();
 	}
@@ -134,38 +165,4 @@ public class ImplDAO implements InterfDAO {
 		query.setParameter("y", "%"+mc+"%");
 		return query.getResultList();
 	}
-
-	/**
-	 * doVersement effectue un versement v dans le compte d'identifiant
-	 * 'idCompte'
-	 **/
-	@Override
-	public void doVersement(Versement v, long idCompte) {
-		Compte cm = em.find(Compte.class, idCompte);
-		cm.setSoldeCompte(cm.getSoldeCompte() + v.getMontantOperation());
-		v.setCompte(cm);
-		em.merge(cm);
-		em.merge(v);
-	}
-
-	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
-	@Override
-	public void doRetrait(Retrait r, long idCompte) {
-		Compte c= em.find(Compte.class, idCompte);
-		c.setSoldeCompte(c.getSoldeCompte()-r.getMontantOperation());
-		r.setCompte(c);
-		em.merge(c);
-		em.merge(r);
-	}
-
-	@Override
-	public void doVirement(long idCompteCredite, long idCompteDebite,		//Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite
-			double somme) {
-		Date d = new Date();
-		Retrait r = new Retrait(d, somme);
-		Versement v = new Versement (d, somme);
-		doVersement(v, idCompteCredite);
-		doRetrait(r,idCompteDebite);
-	}
-
 }
