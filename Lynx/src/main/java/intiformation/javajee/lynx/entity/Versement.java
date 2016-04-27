@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-/*Auteur :
+/*Auteur : Jean-Daniel Eymann
  * NomProjet: Lynx
  * Date : 26/04/2016
  * Package : intiformation.javajee.lynx.entity

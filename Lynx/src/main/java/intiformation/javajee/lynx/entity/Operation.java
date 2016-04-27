@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/*Auteur :
+/*Auteur : Jean Daniel Eymann
  * NomProjet: Lynx
  * Date : 26/04/2016
  * Package : intiformation.javajee.lynx.entity

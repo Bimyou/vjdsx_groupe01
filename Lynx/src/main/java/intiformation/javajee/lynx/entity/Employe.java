@@ -72,8 +72,12 @@ public class Employe {
 	public void setListeOperations(List<Operation> listeOperations) {
 		this.listeOperations = listeOperations;
 	}
-	
-	
+	public List<Compte> getListeComptes() {
+		return listeComptes;
+	}
+	public void setListeComptes(List<Compte> listeComptes) {
+		this.listeComptes = listeComptes;
+	}
 	///////////////////////
 	/////constructeurs/////
 	///////////////////////
