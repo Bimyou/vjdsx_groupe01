@@ -40,7 +40,7 @@ public abstract class Operation {							//Class abstraite Operation qui donnera 
 	protected Long numOperation;
 	@Temporal(TemporalType.TIME)
 	protected Date dateOperation;
-	protected Double montantOperation;
+	protected double montantOperation;
 	
 	/**Association**/
 	@ManyToOne
@@ -75,10 +75,10 @@ public abstract class Operation {							//Class abstraite Operation qui donnera 
 	public void setDateOperation(Date dateOperation) {
 		this.dateOperation = dateOperation;
 	}
-	public Double getMontantOperation() {
+	public double getMontantOperation() {
 		return montantOperation;
 	}
-	public void setMontantOperation(Double montantOperation) {
+	public void setMontantOperation(double montantOperation) {
 		this.montantOperation = montantOperation;
 	}
 	

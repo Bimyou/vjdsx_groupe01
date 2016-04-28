@@ -77,6 +77,30 @@ public class Compte implements Serializable {
 		return numeroCompte;
 	}
 
+	public Employe getEmploye() {
+		return employe;
+	}
+
+	public void setEmploye(Employe employe) {
+		this.employe = employe;
+	}
+
+	public List<Operation> getListeOperation() {
+		return listeOperation;
+	}
+
+	public void setListeOperation(List<Operation> listeOperation) {
+		this.listeOperation = listeOperation;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	public void setNumeroCompte(Long numeroCompte) {
 		this.numeroCompte = numeroCompte;
 	}

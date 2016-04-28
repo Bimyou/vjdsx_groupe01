@@ -93,6 +93,8 @@ public class ImplDAO implements InterfDAO {
 		Employe e = em.find(Employe.class, idEmploye);
 		cl.getListeComptes().add(c);
 		e.getListeComptes().add(c);
+		c.setEmploye(e);
+		c.setClient(cl);
 		em.persist(c);
 	}
 
@@ -164,5 +166,12 @@ public class ImplDAO implements InterfDAO {
 		query.setParameter("x", "%"+mc+"%");
 		query.setParameter("y", "%"+mc+"%");
 		return query.getResultList();
+	}
+	
+	
+	/** searchClient selectionne une liste de tout les client contenant le mot cles 'mc' **/
+	@Override
+	public void updateCompte(Compte compteModifie) {
+		em.merge(compteModifie);
 	}
 }

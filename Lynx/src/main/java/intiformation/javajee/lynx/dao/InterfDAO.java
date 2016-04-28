@@ -78,6 +78,6 @@ public interface InterfDAO {
 	/** searchClient selectionne une liste de tout les client contenant le mot cles 'mc' **/
 	public List<Client> searchClient (String mc);
 
-
+	public void updateCompte(Compte compteModifie);
 	
 }

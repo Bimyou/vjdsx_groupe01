@@ -153,22 +153,24 @@ public class ImplMetier implements InterfMetier {
 	 * 'idCompte'
 	 **/
 	@Override
-	public void verser(Double mont, Long idCompte, Long idEmploye) {
+	public void verser(double mont, Long idCompte, Long idEmploye) {
 		Compte c= dao.getCompte(idCompte);
 		Versement v = new Versement(new Date(), mont);
 		c.setSoldeCompte(c.getSoldeCompte() + mont);
 		v.setCompte(c);
+		dao.updateCompte(c);
 		dao.addOperation(v, idEmploye);
 	}
 
 	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
 	@Override
-	public void doRetrait(Double mont, Long idCompte, Long idEmploye) {
+	public void doRetrait(double mont, Long idCompte, Long idEmploye) {
 		Compte c= dao.getCompte(idCompte);
-		Versement v = new Versement(new Date(), mont);
+		Retrait r = new Retrait(new Date(), mont);
 		c.setSoldeCompte(c.getSoldeCompte() - mont);
-		v.setCompte(c);
-		dao.addOperation(v, idEmploye);
+		r.setCompte(c);
+		dao.updateCompte(c);
+		dao.addOperation(r, idEmploye);
 	}
 
 	/**Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite*/
