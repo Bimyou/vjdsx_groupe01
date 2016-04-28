@@ -179,4 +179,9 @@ public class ImplMetier implements InterfMetier {
 		verser(montant, idCompteCredite, idEmploye);
 		doRetrait(montant,idCompteDebite, idEmploye);
 	}			
+	
+	/** searchClient selectionne une liste de tous les clients **/
+	public List<Client> selectAllClient (){
+		return dao.selectAllClient();
+	}
 }

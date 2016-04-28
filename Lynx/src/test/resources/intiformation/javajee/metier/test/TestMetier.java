@@ -170,4 +170,10 @@ public class TestMetier {
 		assertTrue(true);
 		assertTrue(true);
 	}
+	
+	@Test
+	public void TestSelectAllClient(){
+		List<Client> list=metier.selectAllClient();
+		assertNotNull(list);
+	}
 }

@@ -174,4 +174,12 @@ public class ImplDAO implements InterfDAO {
 	public void updateCompte(Compte compteModifie) {
 		em.merge(compteModifie);
 	}
+
+	/** selectAllGroupe selectionne une liste de tout les groupes de la base de donnee **/
+	@Override
+	public List<Client> selectAllClient() {
+		// TODO Auto-generated method stub
+		Query query= em.createQuery("select c from Client c ");
+		return query.getResultList();
+	}
 }

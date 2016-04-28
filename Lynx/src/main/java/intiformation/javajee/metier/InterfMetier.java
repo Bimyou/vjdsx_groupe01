@@ -87,4 +87,6 @@ public interface InterfMetier {
 	/** doVirement effectue un virement vers le compte d'identifiant 'idCompteCredite', par le compte d'identifiant 'idCompteDebite' d'un valeur de 'somme' **/
 	public void doVirement (Long idCompteCredite,Long idCompteDebite, double somme, Long idEmploye);
 	
+	/** searchClient selectionne une liste de tous les clients **/
+	public List<Client> selectAllClient ();
 }
