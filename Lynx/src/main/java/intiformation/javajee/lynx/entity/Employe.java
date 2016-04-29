@@ -35,7 +35,7 @@ public class Employe {
 	private Long codeEmploye;
 	private String nomEmploye;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="employe_groupe")
 	private List<Groupe> listeGroupes;
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="employe")

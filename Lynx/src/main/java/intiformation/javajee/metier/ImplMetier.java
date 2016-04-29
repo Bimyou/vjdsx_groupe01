@@ -184,4 +184,16 @@ public class ImplMetier implements InterfMetier {
 	public List<Client> selectAllClient (){
 		return dao.selectAllClient();
 	}
+
+	/** selectAllCompte selectionne une liste de tous les Comptes **/
+	@Override
+	public List<Compte> selectAllCompte() {
+		return dao.selectAllCompte();
+	}
+
+	/** selectAllOperation selectionne une liste de tous les Operations **/
+	@Override
+	public List<Operation> selectAllOperation() {
+		return dao.selectAllOperation();
+	}
 }

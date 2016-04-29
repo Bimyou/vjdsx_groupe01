@@ -18,8 +18,8 @@
 	</div>
 	<div style="background-color: rgb(219,245,247);">
 		<h2 style="margin-left: 10%;">Menu</h2>
-		<a style="margin-left: 10%;" class="btn btn-default" href="client" role="button">Client</a> <a
-			class="btn btn-default" href="employe" role="button">Employe</a>
+		<a style="margin-left: 10%;" class="btn btn-primary" href="client" role="button">Client</a> <a
+			class="btn btn-primary" href="employe" role="button">Employé</a>
 
 	</div>
 	<div style="background-color: rgb(219,245,247);">
@@ -40,13 +40,13 @@
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
-				<img class="imagecentrer"
+				<img class="imagecentrer img-rounded" 
 					src="<%=request.getContextPath()%>/resources/java.jpg"
 					alt="ImageJava" width="404" height="300">
 				<div class="carousel-caption"></div>
 			</div>
 			<div class="item">
-				<img class="imagecentrer"
+				<img class="imagecentrer img-rounded"
 					src="<%=request.getContextPath()%>/resources/soleil.jpg"
 					alt="Soleil" width="304" height="236">
 				<div class="carousel-caption"></div>
@@ -54,7 +54,7 @@
 
 
 			<div class="item">
-				<img class="imagecentrer"
+				<img class="imagecentrer img-rounded"
 					src="<%=request.getContextPath()%>/resources/Futurama.jpg"
 					alt="Futurama" width="304" height="236">
 				<div class="carousel-caption"></div>
@@ -96,6 +96,25 @@
 			</tr>
 		</table>
 	</div>
+	
+	
+		<br/>
+			</div>
+	</div>
+	<div style="background-color: rgb(238,253,251); text-align:center;" class="centrage">
+		<h4 style="margin-left: auto; color:blue;">Nous & Vous</h4>
+		<p>
+		Nous contacter
+		E-mail : adaming-ingenieur@gmail.com
+		</p>
+
+	</div>
+	
+	<br/>
+	
+<div >
+	<img class="imagecentrer" src="<%=request.getContextPath()%>/resources/lynx_logo.png" alt="Lynx" width="100" height="100">
+</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

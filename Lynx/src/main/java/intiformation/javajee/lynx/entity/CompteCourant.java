@@ -24,6 +24,8 @@ public class CompteCourant extends Compte implements Serializable {
 
 	private double decouvert;
 
+	
+	
 	/* getEtSet */
 	public double getDecouvert() {
 		return decouvert;
@@ -35,15 +37,18 @@ public class CompteCourant extends Compte implements Serializable {
 
 	public CompteCourant() {
 		super();
+		this.typeCompte= "CC";
 	}
 
 	public CompteCourant(double soldeCompte, Date dateCreationCompte) {
 		super(soldeCompte, dateCreationCompte);
+		this.typeCompte= "CC";
 	}
 
 	public CompteCourant(double decouvert) {
 		super();
 		this.decouvert = decouvert;
+		this.typeCompte= "CC";
 	}
 
 

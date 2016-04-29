@@ -38,7 +38,7 @@ public abstract class Operation {							//Class abstraite Operation qui donnera 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	protected Long numOperation;
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	protected Date dateOperation;
 	protected double montantOperation;
 	

@@ -34,10 +34,12 @@ public class CompteEpargne extends Compte implements Serializable {
 
 	public CompteEpargne() {
 		super();
+		this.typeCompte= "CE";
 	}
 
 	public CompteEpargne(double soldeCompte, Date dateCreationCompte) {
 		super(soldeCompte, dateCreationCompte);
+		this.typeCompte= "CE";
 	}
 	
 	

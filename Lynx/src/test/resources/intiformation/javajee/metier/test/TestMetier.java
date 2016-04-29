@@ -176,4 +176,14 @@ public class TestMetier {
 		List<Client> list=metier.selectAllClient();
 		assertNotNull(list);
 	}
+	
+	public void testSelectAllCompte(){
+		List<Compte> list = metier.selectAllCompte();
+		assertNotNull(list);
+	}
+	
+	public void testSelectAllOperation(){
+		List<Operation> list = metier.selectAllOperation();
+		assertNotNull(list);
+	}
 }

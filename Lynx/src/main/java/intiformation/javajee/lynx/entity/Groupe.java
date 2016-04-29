@@ -33,7 +33,7 @@ public class Groupe {
 	private Long codeGroupe;
 	private String nomGroupe;
 	
-	@ManyToMany(fetch=FetchType.LAZY, mappedBy="listeGroupes")
+	@ManyToMany(fetch=FetchType.EAGER, mappedBy="listeGroupes")
 	private List<Employe> listeEmployes = new ArrayList<Employe>();
 
 	

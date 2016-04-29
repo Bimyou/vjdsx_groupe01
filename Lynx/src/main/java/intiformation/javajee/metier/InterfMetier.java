@@ -89,4 +89,10 @@ public interface InterfMetier {
 	
 	/** searchClient selectionne une liste de tous les clients **/
 	public List<Client> selectAllClient ();
+	
+	/** selectAllCompte selectionne une liste de tous les Comptes **/
+	public List<Compte> selectAllCompte ();
+	
+	/** selectAllOperation selectionne une liste de tous les Operations **/
+	public List<Operation> selectAllOperation();
 }
