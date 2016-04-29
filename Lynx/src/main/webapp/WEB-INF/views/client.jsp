@@ -175,47 +175,62 @@
 	
 	
 	<div>
-		<form method="post" action="effectuerVersement">
-			<p>
-				<label for="compte">Effectuer un versement</label> : 
-				<input type="text" name="montant" placeholder="Montant" id="operation" />
-				<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" />
-				<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
+		<label for="operation">Quelle opération souhaitez vous faire</label>
+		<select name="typeOperation">
+			<option value="default" selected></option>
+			<option value="Versement">Versement</option>
+			<option value="Retrait">Retrait</option>
+			<option value="Virement">Virement</option>
+		</select>
+		
+		<c:choose>
+			<c:when test="typeOperation==Versement">
+				<form method="post" action="effectuerVersement">
+					<p>
+						<label for="compte">Effectuer un versement</label> : 
+						<input type="text" name="montant" placeholder="Montant" id="operation" />
+						<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" />
+						<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
 						
-				<input type="submit" class="btn btn-primary" value="Envoyer">
-			</p>
-		</form>
-	</div>
-	
-	
-	<div>
-		<form method="post" action="effectueRetrait">
-			<p>
-				<label for="compte">Effectuer un retrait</label> : 
-				<input type="text" name="montant" placeholder="Montant" id="operation" />
-				<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" />
-				<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
+						<input type="submit" class="btn btn-primary" value="Envoyer">
+					</p>
+				</form>
+			</c:when>
+			
+			<c:when test="typeOperation==Retrait">
+				<form method="post" action="effectueRetrait">
+					<p>
+						<label for="compte">Effectuer un retrait</label> : 
+						<input type="text" name="montant" placeholder="Montant" id="operation" />
+						<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" />
+						<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
 						
-				<input type="submit" class="btn btn-primary" value="Envoyer">
-			</p>
-		</form>
+						<input type="submit" class="btn btn-primary" value="Envoyer">
+					</p>
+				</form>
+			</c:when>
+			
+			<c:when test="typeOperation==Virement">
+				<form method="post" action="effectuerVirementBancaire">
+					<p>
+						<label>Effectuer un virement</label> :
+						<input  type="text" name="montant" placeholder="Montant" id="operation"/>
+						<input type="number"  name="numeroCompteCredite" placeholder="Numero de Compte Credite" id="operation"/>
+						<input type="number"  name="numeroCompteDebite" placeholder="Numero de Compte Debite" id="operation"/>
+						<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
+						<input type="submit" value="Envoyer"/>
+					</p>
+				</form>
+			</c:when>
+			
+		</c:choose>
 	</div>
 	
-	<div>
-		<form method="post" action="effectuerVirementBancaire">
-		<p>
-			<label>Effectuer un virement</label> :
-			<input  type="text" name="montant" placeholder="Montant" id="operation"/>
-			<input type="number"  name="numeroCompteCredite" placeholder="Numero de Compte Credite" id="operation"/>
-			<input type="number"  name="numeroCompteDebite" placeholder="Numero de Compte Debite" id="operation"/>
-			<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
-			<input type="submit" value="Envoyer"/>
-		</p>
-		</form>
+
+	
+	<div >
+		<img class="imagecentrer" src="<%=request.getContextPath()%>/resources/lynx_logo.png" alt="Lynx" width="100" height="100">
 	</div>
-<div >
-	<img class="imagecentrer" src="<%=request.getContextPath()%>/resources/lynx_logo.png" alt="Lynx" width="100" height="100">
-</div>
 	
 	<a type="button" href="accueil" class="btn btn-primary btn-xs">Retour
 		au menu</a>
