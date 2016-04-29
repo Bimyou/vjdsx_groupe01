@@ -23,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 
@@ -51,11 +52,14 @@ public class Compte implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long numeroCompte;
 	protected double soldeCompte;
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	protected Date dateCreationCompte;
+	
+	@Transient
+	protected String typeCompte;
 
 	/* association */
-
+	
 	@ManyToOne
 	/* employe */
 	@JoinColumn(name = "id_Employe")
@@ -119,6 +123,13 @@ public class Compte implements Serializable {
 
 	public void setDateCreationCompte(Date dateCreationCompte) {
 		this.dateCreationCompte = dateCreationCompte;
+	}
+	public String getTypeCompte() {
+		return typeCompte;
+	}
+
+	public void setTypeCompte(String typeCompte) {
+		this.typeCompte = typeCompte;
 	}
 
 	/* constructor */

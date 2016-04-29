@@ -87,8 +87,8 @@
 			<p>
 				<label for="compte">Ajouter un compte courant</label> : 
 				<!-- <input type="text"	name="typeCompte" placeholder="Courant ou Epargne" id="compte" />  pas besoin car compte defini-->
-				<input type="number" name="soldeCompte" placeholder="Solde" id="compte" />		<!-- Type number pour recuperer un double -->
-				<input type="number" name="decouvert" placeholder="decouvert" id="compte" />
+				<input type="text" name="soldeCompte" placeholder="Solde" id="compte" />		<!-- Type number pour recuperer un double -->
+				<input type="text" name="decouvert" placeholder="decouvert" id="compte" />
 				<input type="number" name="idClient" placeholder="idClient" id="compte" />
 				<input type="number" name="idEmploye" placeholder="idEmploye" id="compte" />
 						
@@ -103,8 +103,8 @@
 			<p>
 				<label for="compte">Ajouter un compte epargne</label> : 
 				<!-- <input type="text"	name="typeCompte" placeholder="Courant ou Epargne" id="compte" />  pas besoin car compte defini-->
-				<input type="number" name="soldeCompte" placeholder="Solde" id="compte" />		<!-- Type number pour recuperer un double -->
-				<input type="number" name="interet" placeholder="Interet" id="compte" />
+				<input type="text" name="soldeCompte" placeholder="Solde" id="compte" />		<!-- Type number pour recuperer un double -->
+				<input type="text" name="interet" placeholder="Interet" id="compte" />
 				<input type="number" name="idClient" placeholder="idClient" id="compte" />
 				<input type="number" name="idEmploye" placeholder="idEmploye" id="compte" />
 						
@@ -178,7 +178,7 @@
 		<form method="post" action="effectuerVersement">
 			<p>
 				<label for="compte">Effectuer un versement</label> : 
-				<input type="number" name="montant" placeholder="Montant" id="operation" />
+				<input type="text" name="montant" placeholder="Montant" id="operation" />
 				<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" />
 				<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
 						
@@ -192,7 +192,7 @@
 		<form method="post" action="effectueRetrait">
 			<p>
 				<label for="compte">Effectuer un retrait</label> : 
-				<input type="number" name="montant" placeholder="Montant" id="operation" />
+				<input type="text" name="montant" placeholder="Montant" id="operation" />
 				<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" />
 				<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
 						
@@ -205,7 +205,7 @@
 		<form method="post" action="effectuerVirementBancaire">
 		<p>
 			<label>Effectuer un virement</label> :
-			<input  type="number" name="montant" placeholder="Montant" id="operation"/>
+			<input  type="text" name="montant" placeholder="Montant" id="operation"/>
 			<input type="number"  name="numeroCompteCredite" placeholder="Numero de Compte Credite" id="operation"/>
 			<input type="number"  name="numeroCompteDebite" placeholder="Numero de Compte Debite" id="operation"/>
 			<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
@@ -216,6 +216,7 @@
 <div >
 	<img class="imagecentrer" src="<%=request.getContextPath()%>/resources/lynx_logo.png" alt="Lynx" width="100" height="100">
 </div>
+	
 	<a type="button" href="accueil" class="btn btn-primary btn-xs">Retour
 		au menu</a>
 </body>

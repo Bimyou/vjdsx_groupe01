@@ -18,8 +18,8 @@
 	</div>
 	<div style="background-color: rgb(219,245,247);">
 		<h2 style="margin-left: 10%;">Menu</h2>
-		<a style="margin-left: 10%;" class="btn btn-primary" href="client" role="button">Client</a> <a
-			class="btn btn-primary" href="employe" role="button">Employé</a>
+		<a style="margin-left: 10%;" class="btn btn-default" href="client" role="button">Client</a> <a
+			class="btn btn-default" href="employe" role="button">Employé</a>
 
 	</div>
 	<div style="background-color: rgb(219,245,247);">

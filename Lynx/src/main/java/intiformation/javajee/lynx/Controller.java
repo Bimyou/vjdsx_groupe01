@@ -37,7 +37,6 @@ public class Controller {
 	public String client(Model model) {
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
-		
 		return "client";
 	}
 
@@ -116,9 +115,11 @@ public class Controller {
 	
 
 	@RequestMapping(value="/ajouterCompteCourant")
-	public String addCompteCourant (Model model, double soldeCompte, double decouvert, Long idClient, Long idEmploye) throws ParseException{
-		CompteCourant c = new CompteCourant(soldeCompte, new Date());
-		c.setDecouvert(decouvert);
+	public String addCompteCourant (Model model, String soldeCompte, String decouvert, Long idClient, Long idEmploye) throws ParseException{
+		double solde = Double.parseDouble(soldeCompte);
+		double dec = Double.parseDouble(decouvert);
+		CompteCourant c = new CompteCourant(solde, new Date());
+		c.setDecouvert(dec);
 		metier.addCompte(c, idClient, idEmploye);
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
@@ -127,9 +128,11 @@ public class Controller {
 	}
 	
 	@RequestMapping(value="/ajouterCompteEpargne")
-	public String addCompteEpargne (Model model, double soldeCompte, double interet, Long idClient, Long idEmploye) throws ParseException{
-		CompteEpargne c = new CompteEpargne(soldeCompte, new Date());
-		c.setTauxInteret(interet);
+	public String addCompteEpargne (Model model, String soldeCompte, String interet, Long idClient, Long idEmploye) throws ParseException{
+		double solde = Double.parseDouble(soldeCompte);
+		double taux = Double.parseDouble(interet);
+		CompteEpargne c = new CompteEpargne(solde, new Date());
+		c.setTauxInteret(taux);
 		metier.addCompte(c, idClient, idEmploye);
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
@@ -154,8 +157,9 @@ public class Controller {
 	}
 	
 	@RequestMapping(value="/effectuerVersement")
-	public String effectuerVersement (Model model, double montant, Long numeroCompte, Long idEmploye) throws ParseException{
-		metier.verser(montant, numeroCompte, idEmploye);
+	public String effectuerVersement (Model model, String montant, Long numeroCompte, Long idEmploye) throws ParseException{
+		double somme = Double.parseDouble(montant);
+		metier.verser(somme, numeroCompte, idEmploye);
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
 		model.addAttribute("allOpe", metier.selectAllOperation());
@@ -163,8 +167,10 @@ public class Controller {
 	}
 	
 	@RequestMapping(value="/effectueRetrait")
-	public String effectuerRetrait (Model model, double montant, Long numeroCompte, Long idEmploye) throws ParseException{
-		metier.doRetrait(montant, numeroCompte, idEmploye);
+	public String effectuerRetrait (Model model, String montant, Long numeroCompte, Long idEmploye) throws ParseException{
+		double somme = Double.parseDouble(montant);
+		metier.verser(somme, numeroCompte, idEmploye);
+		metier.doRetrait(somme, numeroCompte, idEmploye);
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
 		model.addAttribute("allOpe", metier.selectAllOperation());
@@ -181,8 +187,9 @@ public class Controller {
 	
 
 	@RequestMapping(value="/effectuerVirementBancaire")
-	public String effectuerVirement (Model model, double montant, Long numeroCompteCredite, Long numeroCompteDebite, Long idEmploye) throws ParseException{
-		metier.doVirement(numeroCompteCredite, numeroCompteDebite, montant, idEmploye);
+	public String effectuerVirement (Model model, String montant, Long numeroCompteCredite, Long numeroCompteDebite, Long idEmploye) throws ParseException{
+		double somme = Double.parseDouble(montant);
+		metier.doVirement(numeroCompteCredite, numeroCompteDebite, somme, idEmploye);
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
 		model.addAttribute("allOpe", metier.selectAllOperation());

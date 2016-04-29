@@ -122,8 +122,9 @@ public class ImplDAO implements InterfDAO {
 	/**selectCompteWithClient renvoie la list de compte que possede un client, elle a besoin de l idClien**/
 	@Override
 	public List<Compte> selectCompteWithClient(Long idClient) {	
-		Client c = em.find(Client.class, idClient);
-		return c.getListeComptes();
+		Query query = em.createQuery("from Compte c where c.client.codeClient=:x");
+		query.setParameter("x",idClient);
+		return query.getResultList();
 	}
 
 	/** selectCompteWithEmploy selectionne une liste de compte de la base de donnee en fct de l'id de l'employe qui l'a cree**/
@@ -180,6 +181,20 @@ public class ImplDAO implements InterfDAO {
 	public List<Client> selectAllClient() {
 		// TODO Auto-generated method stub
 		Query query= em.createQuery("select c from Client c ");
+		return query.getResultList();
+	}
+
+	/** selectAllCompte selectionne une liste de tous les Comptes **/
+	@Override
+	public List<Compte> selectAllCompte() {
+		Query query = em.createQuery("SELECT c FROM Compte c");
+		return query.getResultList();
+	}
+
+	/** selectAllOperation selectionne une liste de tous les Operations **/
+	@Override
+	public List<Operation> selectAllOperation() {
+		Query query = em.createQuery("SELECT o FROM Operation o");
 		return query.getResultList();
 	}
 }

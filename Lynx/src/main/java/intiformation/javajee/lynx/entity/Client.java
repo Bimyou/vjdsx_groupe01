@@ -38,7 +38,7 @@ public class Client {
 	private Long codeClient;
 	private String nomClient;
 	private String prenomClient;
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	private Date dateNaissanceClient;
 	private String adresseClient;
 	
