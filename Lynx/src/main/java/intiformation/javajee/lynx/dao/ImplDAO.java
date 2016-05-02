@@ -107,10 +107,13 @@ public class ImplDAO implements InterfDAO {
 		em.persist(o);
 	}
 
-	/** getCompte ressort un compte de la base de donnee en fct de son id**/
+	/** getCompte ressort un compte de la base de donnee en fct de son id
+	 * @throws Exception **/
 	@Override
-	public Compte getCompte(Long idCompte) {
+	public Compte getCompte(Long idCompte) throws Exception {
+	
 		Compte c= em.find(Compte.class, idCompte);
+		if (c==null) throw new Exception("Compte introuvable");
 		return c;
 	}
 	

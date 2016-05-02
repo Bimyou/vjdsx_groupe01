@@ -19,13 +19,13 @@
 
 
 	<div>
-		<form method="post" action="ajouterClient">
+		<form method="post" action="ajouterClient" class="form-inline">
 			<p>
 				<label for="client">Ajouter un client</label> : 
-				<input type="text" name="prenomClient" id="client" placeholder="Prenom"/> 
-				<input type="text" name="nomClient" id="client" placeholder="Nom"/> 
-				<input type="text" name="dateNaissance" placeholder="jj/mm/aaaa" id="client" /> 
-				<input type="text" name="adressClient" placeholder="Adresse" id="client" /> 
+				<input type="text" name="prenomClient" id="client" placeholder="Prenom" class="form-control"/> 
+				<input type="text" name="nomClient" id="client" placeholder="Nom" class="form-control"/> 
+				<input type="text" name="dateNaissance" placeholder="jj/mm/aaaa" id="client" class="form-control"/> 
+				<input type="text" name="adressClient" placeholder="Adresse" id="client" class="form-control"/> 
 				
 				<input type="submit" class="btn btn-primary" value="Envoyer">
 			</p>
@@ -34,11 +34,11 @@
 
 	
 	<div>
-		<form method="post" action="rechercherClient">
+		<form method="post" action="rechercherClient" class="form-inline">
 			<p>
 				<label for="client">Rechercher un client</label> : 
-				<input type="text" name="motCle" id="client" placeholder="Mot Cle"/> 				
-				<input type="submit"  class="btn btn-primary" value="Envoyer">
+				<input type="text" name="motCle" id="client" placeholder="Mot Cle" class="form-control"/> 				
+				<input type="submit" class="btn btn-primary" value="Envoyer">
 			</p>
 		</form>
 	</div>
@@ -52,7 +52,7 @@
 	      <th class="success">Nom du Client</th>
 	      <th class="success">Prenom du Client</th>
 	      <th class="success">Date de Naissance</th>
-	       <th class="success">Adresse du Client</th>
+	      <th class="success">Adresse du Client</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -69,56 +69,53 @@
 	</table>
 	
 	
-	
-	<!-- Essayer de demander a l utilisateur le type de compte pour lui envoyer le bon formulaire (si y a le temps)
+	<!-- Demander a l utilisateur le type de compte (Courant Epargne)qu il souhaite creer pour lui envoyer le bon formulaire-->	
 	<div>
-		<form method="post" action="/typeCompte">
-			<p>
-				<label for="compte">Ajouter un compte</label> : 
-				<input type="text"	name="typeCompte" placeholder="Courant ou Epargne" id="compte" /> 						
-				<input type="submit" value="Envoyer">
-			</p>
+		<form name="order" action="typeCompte" method="post" class="form-inline">
+			<label for="compte">Quelle type de compte souhaitez vous creer?</label>
+			<select name="typeCompte">
+				<option value="default" selected></option>
+				<option value="Courant">Courant</option>
+				<option value="Epargne">Epargne</option>
+			</select>
+			<input type="submit" class="btn btn-primary" value="Envoyer">
 		</form>
-	</div> -->
-	
-	
-	<div>
-		<form method="post" action="ajouterCompteCourant">
-			<p>
-				<label for="compte">Ajouter un compte courant</label> : 
-				<!-- <input type="text"	name="typeCompte" placeholder="Courant ou Epargne" id="compte" />  pas besoin car compte defini-->
-				<input type="text" name="soldeCompte" placeholder="Solde" id="compte" />		<!-- Type number pour recuperer un double -->
-				<input type="text" name="decouvert" placeholder="decouvert" id="compte" />
-				<input type="number" name="idClient" placeholder="idClient" id="compte" />
-				<input type="number" name="idEmploye" placeholder="idEmploye" id="compte" />
+
+		<c:if test="${typeCmpt=='Courant'}">
+			<form method="post" action="ajouterCompteCourant" class="form-inline">
+				<p>
+					<label for="compte">Ajouter un compte courant</label>
+					<input type="text" name="soldeCompte" placeholder="Solde" id="compte" class="form-control"/>
+					<input type="text" name="decouvert" placeholder="decouvert" id="compte" class="form-control"/>
+					<input type="number" name="idClient" placeholder="idClient" id="compte" class="form-control"/>
+					<input type="number" name="idEmploye" placeholder="idEmploye" id="compte" class="form-control"/>
 						
-				<input type="submit" class="btn btn-primary" value="Envoyer">
-			</p>
-		</form>
+					<input type="submit" class="btn btn-primary" value="Envoyer">
+				</p>
+			</form>
+		</c:if>
+
+		<c:if test="${typeCmpt=='Epargne'}">
+			<form method="post" action="ajouterCompteEpargne" class="form-inline">
+				<p>
+					<label for="compte">Ajouter un compte epargne</label> : 
+					<input type="text" name="soldeCompte" placeholder="Solde" id="compte" class="form-control"/>		
+					<input type="text" name="interet" placeholder="Interet" id="compte" class="form-control"/>
+					<input type="number" name="idClient" placeholder="idClient" id="compte" class="form-control"/>
+					<input type="number" name="idEmploye" placeholder="idEmploye" id="compte" class="form-control"/>
+						
+					<input type="submit" class="btn btn-primary" value="Envoyer">
+				</p>
+			</form>
+		</c:if>
 	</div>
 
 
 	<div>
-		<form method="post" action="ajouterCompteEpargne">
-			<p>
-				<label for="compte">Ajouter un compte epargne</label> : 
-				<!-- <input type="text"	name="typeCompte" placeholder="Courant ou Epargne" id="compte" />  pas besoin car compte defini-->
-				<input type="text" name="soldeCompte" placeholder="Solde" id="compte" />		<!-- Type number pour recuperer un double -->
-				<input type="text" name="interet" placeholder="Interet" id="compte" />
-				<input type="number" name="idClient" placeholder="idClient" id="compte" />
-				<input type="number" name="idEmploye" placeholder="idEmploye" id="compte" />
-						
-				<input type="submit" class="btn btn-primary" value="Envoyer">
-			</p>
-		</form>
-	</div>
-
-
-	<div>
-		<form method="post" action="chercherCompteParClient">
+		<form method="post" action="chercherCompteParClient" class="form-inline">
 			<p>
 				<label for="compte">Chercher les comptes d'un client</label> : 
-				<input type="number" name="idClient" placeholder="idClient" id="compte" />		
+				<input type="number" name="idClient" placeholder="idClient" id="compte" class="form-control"/>		
 				<input type="submit" class="btn btn-primary" value="Envoyer">
 			</p>
 		</form>
@@ -126,10 +123,10 @@
 
 
 	<div>
-		<form method="post" action="chercherCompteParEmploye">
+		<form method="post" action="chercherCompteParEmploye" class="form-inline">
 			<p>
 				<label for="compte">Chercher les comptes cree par un employe</label> : 
-				<input type="number" name="idEmploye" placeholder="idEmploye" id="compte" />		
+				<input type="number" name="idEmploye" placeholder="idEmploye" id="compte" class="form-control"/>		
 				<input type="submit" class="btn btn-primary" value="Envoyer">
 			</p>
 		</form>
@@ -139,12 +136,12 @@
 		<table class="table table-bordered">
    			<caption>Consulter les comptes</caption>
   			<tr>
-       			<td class="success">Numero de compte</td>
-       			<td class="success">Type de compte</td>
-       			<td class="success">Solde compte</td>
-       			<td class="success">Date de creation</td>
-       			<td class="success">Nom du client</td>
-       			<td class="success">Cree par</td>
+       			<th class="success">Numero de compte</th>
+       			<th class="success">Type de compte</th>
+       			<th class="success">Solde compte</th>
+       			<th class="success">Date de creation</th>
+       			<th class="success">Nom du client</th>
+       			<th class="success">Cree par</th>
        			<!-- Rajoute interet et decouvert? -->
   			</tr>
   			
@@ -162,74 +159,62 @@
 		</table>
 	</div>
 
-<!-- Essayer de demander a l utilisateur le type de l operation (retrait versement)pour lui envoyer le bon formulaire (si y a le temps)
-	<div>
-		<form method="post" action="/ajouterOperation">
-			<p>
-				<label for="operation">Ajouter une operation</label> : <input
-					type="text" name="queloperation" id="operation" /> <input
-					type="submit" value="Envoyer">			
-			</p>
-		</form>
-	</div> -->
 	
-	
+<!-- Demander a l utilisateur le type de l operation (retrait versement)pour lui envoyer le bon formulaire-->	
 	<div>
+	<form name="order" action="typeOperation" method="post" class="form-inline">
 		<label for="operation">Quelle opération souhaitez vous faire</label>
 		<select name="typeOperation">
 			<option value="default" selected></option>
-			<option value="Versement">Versement</option>
-			<option value="Retrait">Retrait</option>
-			<option value="Virement">Virement</option>
+			<option value="versement">Versement</option>
+			<option value="retrait">Retrait</option>
+			<option value="virement">Virement</option>
 		</select>
-		
-		<c:choose>
-			<c:when test="typeOperation==Versement">
-				<form method="post" action="effectuerVersement">
-					<p>
-						<label for="compte">Effectuer un versement</label> : 
-						<input type="text" name="montant" placeholder="Montant" id="operation" />
-						<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" />
-						<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
-						
-						<input type="submit" class="btn btn-primary" value="Envoyer">
-					</p>
-				</form>
-			</c:when>
-			
-			<c:when test="typeOperation==Retrait">
-				<form method="post" action="effectueRetrait">
+		<input type="submit" class="btn btn-primary" value="Envoyer">
+	</form>
+
+			<c:if test="${typeOpe=='retrait'}">
+				<form method="post" action="effectueRetrait" class="form-inline">
 					<p>
 						<label for="compte">Effectuer un retrait</label> : 
-						<input type="text" name="montant" placeholder="Montant" id="operation" />
-						<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" />
-						<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
+						<input type="text" name="montant" placeholder="Montant" id="operation" class="form-control"/>
+						<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" class="form-control"/>
+						<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" class="form-control"/>
 						
 						<input type="submit" class="btn btn-primary" value="Envoyer">
 					</p>
 				</form>
-			</c:when>
-			
-			<c:when test="typeOperation==Virement">
-				<form method="post" action="effectuerVirementBancaire">
+			</c:if>
+			<c:if test="${typeOpe=='versement'}">
+				<form method="post" action="effectuerVersement" class="form-inline">
+					<p>
+						<label for="compte">Effectuer un versement</label> : 
+						<input type="text" name="montant" placeholder="Montant" id="operation" class="form-control"/>
+						<input type="number" name="numeroCompte" placeholder="Numero de Compte" id="operation" class="form-control"/>
+						<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" class="form-control"/>
+						
+						<input type="submit" class="btn btn-primary" value="Envoyer">
+					</p>
+				</form>
+				
+			</c:if>
+			<c:if test="${typeOpe=='virement'}">
+				<form method="post" action="effectuerVirementBancaire" class="form-inline">
 					<p>
 						<label>Effectuer un virement</label> :
-						<input  type="text" name="montant" placeholder="Montant" id="operation"/>
-						<input type="number"  name="numeroCompteCredite" placeholder="Numero de Compte Credite" id="operation"/>
-						<input type="number"  name="numeroCompteDebite" placeholder="Numero de Compte Debite" id="operation"/>
-						<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" />
+						<input  type="text" name="montant" placeholder="Montant" id="operation" class="form-control"/>
+						<input type="number"  name="numeroCompteCredite" placeholder="Numero de Compte Credite" id="operation" class="form-control"/>
+						<input type="number"  name="numeroCompteDebite" placeholder="Numero de Compte Debite" id="operation" class="form-control"/>
+						<input type="number" name="idEmploye" placeholder="idEmploye" id="operation" class="form-control"/>
 						<input type="submit" value="Envoyer"/>
 					</p>
 				</form>
-			</c:when>
-			
-		</c:choose>
+			</c:if>
 	</div>
-	
-
-	
+		
+	<p>${o.exception}</p>
 	<div >
-		<img class="imagecentrer" src="<%=request.getContextPath()%>/resources/lynx_logo.png" alt="Lynx" width="100" height="100">
+	<img class="imagecentrer" src="<%=request.getContextPath()%>/resources/lynx_logo.png" alt="Lynx" width="100" height="100">
 	</div>
 	
 	<a type="button" href="accueil" class="btn btn-primary btn-xs">Retour

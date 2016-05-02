@@ -154,9 +154,11 @@
 			</c:forEach>
 		</table>
 	</div>
-<div >
+	
+	<div >
 	<img class="imagecentrer" src="<%=request.getContextPath()%>/resources/lynx_logo.png" alt="Lynx" width="100" height="100">
 </div>
+	<a type="button" href="client" class="btn btn-primary btn-xs">Aller vers client</a>
 	<a type="button" href="accueil" class="btn btn-primary btn-xs">Retour
 		au menu</a>
 </body>

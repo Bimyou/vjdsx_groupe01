@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /*Auteur : Jean Daniel Eymann
  * NomProjet: Lynx
@@ -42,6 +43,11 @@ public abstract class Operation {							//Class abstraite Operation qui donnera 
 	protected Date dateOperation;
 	protected double montantOperation;
 	
+	@Transient
+	protected String exception;
+	
+	
+
 	/**Association**/
 	@ManyToOne
 	@JoinColumn(name="id_Employe")
@@ -97,6 +103,12 @@ public abstract class Operation {							//Class abstraite Operation qui donnera 
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
-	
+	public String getException() {
+		return exception;
+	}
+
+	public void setException(String exception) {
+		this.exception = exception;
+	}
 
 }

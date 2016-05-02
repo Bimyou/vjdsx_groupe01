@@ -13,6 +13,9 @@ import intiformation.javajee.lynx.entity.CompteCourant;
 import intiformation.javajee.lynx.entity.CompteEpargne;
 import intiformation.javajee.lynx.entity.Employe;
 import intiformation.javajee.lynx.entity.Groupe;
+import intiformation.javajee.lynx.entity.Operation;
+import intiformation.javajee.lynx.entity.Retrait;
+import intiformation.javajee.lynx.entity.Versement;
 import intiformation.javajee.metier.InterfMetier;
 
 @org.springframework.stereotype.Controller
@@ -37,6 +40,7 @@ public class Controller {
 	public String client(Model model) {
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
+		model.addAttribute("employe", metier.selectAllEmploye());
 		return "client";
 	}
 
@@ -88,6 +92,7 @@ public class Controller {
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
 		model.addAttribute("allOpe", metier.selectAllOperation());
+		model.addAttribute("employe", metier.selectAllEmploye());
 		return "client";
 	}
 	
@@ -96,23 +101,20 @@ public class Controller {
 		model.addAttribute("allCli",metier.searchClient(motCle));
 		model.addAttribute("allCmpt", metier.selectAllCompte());
 		model.addAttribute("allOpe", metier.selectAllOperation());
+		model.addAttribute("employe", metier.selectAllEmploye());
 		return "client";
 	}
 	
-	
-	/*@RequestMapping(value="/typeCompte")
+	@RequestMapping(value="/typeCompte")
 	public String typeCompte (Model model, String typeCompte){
-		if ( typeCompte.contains("ouran")){
-		
-		}else if ( typeCompte.contains("pargn")){
-			
-		}
+		String type = typeCompte;
+		model.addAttribute("typeCmpt", type);
+		model.addAttribute("allCli", metier.selectAllClient());
+		model.addAttribute("allCmpt", metier.selectAllCompte());
+		model.addAttribute("allOpe", metier.selectAllOperation());
+		model.addAttribute("employe", metier.selectAllEmploye());
 		return "client";
-	}*/
-	
-	
-	
-	
+	}
 
 	@RequestMapping(value="/ajouterCompteCourant")
 	public String addCompteCourant (Model model, String soldeCompte, String decouvert, Long idClient, Long idEmploye) throws ParseException{
@@ -124,6 +126,7 @@ public class Controller {
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
 		model.addAttribute("allOpe", metier.selectAllOperation());
+		model.addAttribute("employe", metier.selectAllEmploye());
 		return "client";
 	}
 	
@@ -137,6 +140,7 @@ public class Controller {
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
 		model.addAttribute("allOpe", metier.selectAllOperation());
+		model.addAttribute("employe", metier.selectAllEmploye());
 		return "client";
 	}
 	
@@ -145,6 +149,7 @@ public class Controller {
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectCompteWithClient(idClient));
 		model.addAttribute("allOpe", metier.selectAllOperation());
+		model.addAttribute("employe", metier.selectAllEmploye());
 		return "client";
 	}
 	
@@ -153,46 +158,76 @@ public class Controller {
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectCompteWithEmploy(idEmploye));
 		model.addAttribute("allOpe", metier.selectAllOperation());
+		model.addAttribute("employe", metier.selectAllEmploye());
 		return "client";
 	}
 	
+	@RequestMapping(value="/typeOperation")
+	public String typeOperation (Model model, String typeOperation){
+		String type = typeOperation;
+		model.addAttribute("typeOpe", type);
+		model.addAttribute("allCli", metier.selectAllClient());
+		model.addAttribute("allCmpt", metier.selectAllCompte());
+		model.addAttribute("allOpe", metier.selectAllOperation());
+		model.addAttribute("employe", metier.selectAllEmploye());
+		return "client";	
+	}
+		
 	@RequestMapping(value="/effectuerVersement")
 	public String effectuerVersement (Model model, String montant, Long numeroCompte, Long idEmploye) throws ParseException{
 		double somme = Double.parseDouble(montant);
+	try {
 		metier.verser(somme, numeroCompte, idEmploye);
 		model.addAttribute("allCli", metier.selectAllClient());
 		model.addAttribute("allCmpt", metier.selectAllCompte());
 		model.addAttribute("allOpe", metier.selectAllOperation());
-		return "client";
+		model.addAttribute("employe", metier.selectAllEmploye());
+	
+	} catch (Exception e) {
+		Operation o = new Versement();
+		o.setException(e.getMessage());
+		model.addAttribute("o",o);
+	}
+	return "client";
 	}
 	
 	@RequestMapping(value="/effectueRetrait")
 	public String effectuerRetrait (Model model, String montant, Long numeroCompte, Long idEmploye) throws ParseException{
 		double somme = Double.parseDouble(montant);
-		metier.verser(somme, numeroCompte, idEmploye);
-		metier.doRetrait(somme, numeroCompte, idEmploye);
-		model.addAttribute("allCli", metier.selectAllClient());
-		model.addAttribute("allCmpt", metier.selectAllCompte());
-		model.addAttribute("allOpe", metier.selectAllOperation());
+		try {
+			metier.doRetrait(somme, numeroCompte, idEmploye);
+			model.addAttribute("allCli", metier.selectAllClient());
+			model.addAttribute("allCmpt", metier.selectAllCompte());
+			model.addAttribute("allOpe", metier.selectAllOperation());
+			model.addAttribute("employe", metier.selectAllEmploye());
+		} catch (Exception e) {
+			Operation o = new Retrait();
+			o.setException(e.getMessage());
+			model.addAttribute("o",o);
+		}
 		return "client";
 	}
 	
-	@RequestMapping (value="/listeCompteEmploye")
-    public String listeCompteEmploye(Model model, Long codeEmploye){
-		model.addAttribute("compteL", metier.selectCompteWithEmploy(codeEmploye));
-		model.addAttribute("groupe", metier.selectAllGroupe());
-		model.addAttribute("employe", metier.selectAllEmploye());
-		return "employe";	
-	}
-	
-
 	@RequestMapping(value="/effectuerVirementBancaire")
 	public String effectuerVirement (Model model, String montant, Long numeroCompteCredite, Long numeroCompteDebite, Long idEmploye) throws ParseException{
 		double somme = Double.parseDouble(montant);
-		metier.doVirement(numeroCompteCredite, numeroCompteDebite, somme, idEmploye);
-		model.addAttribute("allCli", metier.selectAllClient());
-		model.addAttribute("allCmpt", metier.selectAllCompte());
-		model.addAttribute("allOpe", metier.selectAllOperation());
+		try {
+			metier.doVirement(numeroCompteCredite, numeroCompteDebite, somme, idEmploye);
+			model.addAttribute("allCli", metier.selectAllClient());
+			model.addAttribute("allCmpt", metier.selectAllCompte());
+			model.addAttribute("allOpe", metier.selectAllOperation());
+			model.addAttribute("employe", metier.selectAllEmploye());
+		} catch (Exception e) {
+			Operation o = new Retrait();
+			o.setException(e.getMessage());
+			model.addAttribute("o",o);
+		}
 		return "client";
+	}
+	
+
+	@RequestMapping(value="/Login")
+	public String seconnecter(){
+	return "Login";
 	}
 }

@@ -94,9 +94,10 @@ public class ImplMetier implements InterfMetier {
 		dao.addCompte(c, idClient, idEmploye);
 	}
 	
-	/** getCompte ressort un compte de la base de donnee en fct de son id**/
+	/** getCompte ressort un compte de la base de donnee en fct de son id
+	 * @throws Exception **/
 	@Override
-	public Compte getCompte(Long idCompte) {	
+	public Compte getCompte(Long idCompte) throws Exception {	
 		return dao.getCompte(idCompte);
 	}
 
@@ -153,7 +154,7 @@ public class ImplMetier implements InterfMetier {
 	 * 'idCompte'
 	 **/
 	@Override
-	public void verser(double mont, Long idCompte, Long idEmploye) {
+	public void verser(double mont, Long idCompte, Long idEmploye)  throws Exception {
 		Compte c= dao.getCompte(idCompte);
 		Versement v = new Versement(new Date(), mont);
 		c.setSoldeCompte(c.getSoldeCompte() + mont);
@@ -162,9 +163,10 @@ public class ImplMetier implements InterfMetier {
 		dao.addOperation(v, idEmploye);
 	}
 
-	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
+	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' 
+	 * @throws Exception **/
 	@Override
-	public void doRetrait(double mont, Long idCompte, Long idEmploye) {
+	public void doRetrait(double mont, Long idCompte, Long idEmploye) throws Exception {
 		Compte c= dao.getCompte(idCompte);
 		Retrait r = new Retrait(new Date(), mont);
 		c.setSoldeCompte(c.getSoldeCompte() - mont);
@@ -173,9 +175,10 @@ public class ImplMetier implements InterfMetier {
 		dao.addOperation(r, idEmploye);
 	}
 
-	/**Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite*/
+	/**Cree un versement sur le compte credite et un retrait de la meme somme sur le compte debite
+	 * @throws Exception */
 	@Override
-	public void doVirement(Long idCompteCredite, Long idCompteDebite, double montant, Long idEmploye) {
+	public void doVirement(Long idCompteCredite, Long idCompteDebite, double montant, Long idEmploye) throws Exception {
 		verser(montant, idCompteCredite, idEmploye);
 		doRetrait(montant,idCompteDebite, idEmploye);
 	}			

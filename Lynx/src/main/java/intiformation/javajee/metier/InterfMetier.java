@@ -54,8 +54,9 @@ public interface InterfMetier {
 	/** addOperation ajoute un operation a la base de donnee**/
 	public void addOperation (Operation o, Long idEmploye);
 	
-	/** getCompte ressort un compte de la base de donnee en fct de son id**/
-	public Compte getCompte (Long idCompte);
+	/** getCompte ressort un compte de la base de donnee en fct de son id
+	 * @throws Exception **/
+	public Compte getCompte (Long idCompte) throws Exception;
 	
 	/**getOperation renvoie un Operation grace a son identifiant**/
 	public Operation getOperation (Long idOperation);
@@ -78,14 +79,17 @@ public interface InterfMetier {
 	/** searchClient selectionne une liste de tout les client contenant le mot cles 'mc' **/
 	public List<Client> searchClient (String mc);
 
-	/** doVersement effectue un versement v dans le compte d'identifiant 'idCompte' **/
-	public void verser (double mont, Long idCompte, Long idEmploye);
+	/** doVersement effectue un versement v dans le compte d'identifiant 'idCompte' 
+	 * @throws Exception **/
+	public void verser (double mont, Long idCompte, Long idEmploye) throws Exception;
 	
-	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
-	public void doRetrait (double mont, Long idCompte, Long idEmploye);
+	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' 
+	 * @throws Exception **/
+	public void doRetrait (double mont, Long idCompte, Long idEmploye) throws Exception;
 
-	/** doVirement effectue un virement vers le compte d'identifiant 'idCompteCredite', par le compte d'identifiant 'idCompteDebite' d'un valeur de 'somme' **/
-	public void doVirement (Long idCompteCredite,Long idCompteDebite, double somme, Long idEmploye);
+	/** doVirement effectue un virement vers le compte d'identifiant 'idCompteCredite', par le compte d'identifiant 'idCompteDebite' d'un valeur de 'somme' 
+	 * @throws Exception **/
+	public void doVirement (Long idCompteCredite,Long idCompteDebite, double somme, Long idEmploye) throws Exception;
 	
 	/** searchClient selectionne une liste de tous les clients **/
 	public List<Client> selectAllClient ();

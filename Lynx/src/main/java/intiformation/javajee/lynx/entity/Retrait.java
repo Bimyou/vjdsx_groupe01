@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /*Auteur :  Jean Daniel Eymann
  * NomProjet: Lynx
@@ -30,7 +31,8 @@ public class Retrait extends Operation{
 		super(dateOperation, montantOperation);
 		// TODO Auto-generated constructor stub
 	}
-	
+
+
 
 	
 	

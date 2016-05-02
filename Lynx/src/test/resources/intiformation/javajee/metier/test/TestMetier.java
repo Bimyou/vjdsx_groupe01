@@ -89,9 +89,10 @@ public class TestMetier {
 		assertNotNull (o.getNumOperation());
 	}
 	
-	/** getCompte ressort un compte de la base de donnee en fct de son id**/
+	/** getCompte ressort un compte de la base de donnee en fct de son id
+	 * @throws Exception **/
 	@Test
-	public void testGetCompte() {	
+	public void testGetCompte() throws Exception {	
 		Compte c = metier.getCompte(1L);
 		assertTrue(c.getNumeroCompte().equals(1L));
 	}
@@ -140,9 +141,10 @@ public class TestMetier {
 	/**
 	 * doVersement effectue un versement v dans le compte d'identifiant
 	 * 'idCompte'
+	 * @throws Exception 
 	 **/
 	@Test
-	public void testVerser() {
+	public void testVerser() throws Exception {
 		Compte cm = metier.getCompte(1L);
 		double soldeAnc = cm.getSoldeCompte();
 		metier.verser(555.55, 5L, 1L);
@@ -150,9 +152,10 @@ public class TestMetier {
 		assertTrue(true);
 	}
 
-	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' **/
+	/** doRetrait effectue un Retrait r dans le compte d'identifiant 'idCompte' 
+	 * @throws Exception **/
 	@Test
-	public void testDoRetrait() {
+	public void testDoRetrait() throws Exception {
 		Compte cm = metier.getCompte(2L);
 		double soldeAnc = cm.getSoldeCompte();
 		metier.doRetrait(555.55, 6L, 1L);
@@ -161,7 +164,7 @@ public class TestMetier {
 	}
 
 	@Test
-	public void TestDoVirement() {
+	public void TestDoVirement() throws Exception {
 		Compte cm1 =metier.getCompte(1L);
 		double montAnc = cm1.getSoldeCompte();
 		Compte cm2 = new CompteCourant(500.00,new Date());

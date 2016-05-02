@@ -55,7 +55,7 @@ public interface InterfDAO {
 	public void addOperation (Operation o, Long idEmploye);
 	
 	/** getCompte ressort un compte de la base de donnee en fct de son id**/
-	public Compte getCompte (Long idCompte);
+	public Compte getCompte (Long idCompte) throws Exception ;
 	
 	/**getOperation renvoie un Operation grace a son identifiant**/
 	public Operation getOperation (Long idOperation);
@@ -81,7 +81,7 @@ public interface InterfDAO {
 	/** updateCompte met à jour un compte dans la base de donnees **/
 	public void updateCompte(Compte compteModifie);
 	
-	/** searchClient selectionne une liste de tous les clients **/
+	/** selectAllClient selectionne une liste de tous les clients **/
 	public List<Client> selectAllClient ();
 	
 	/** selectAllCompte selectionne une liste de tous les Comptes **/
